@@ -13,3 +13,14 @@ function submitAnswer() {
         result.textContent = "Wrong Answer!";
     }
 }
+
+function login() {
+    const username = document.getElementById("username").value;
+    const message = document.getElementById("loginMessage");
+
+    if (username === "") {
+        message.textContent = "Please enter your username.";
+    } else {
+        message.textContent = "Login successful!";
+    }
+}
