@@ -7,7 +7,7 @@ function submitAnswer() {
         return;
     }
 
-    if (selectedAnswer.value === "New Delhi") {
+    if (selectedAnswer.value === "Mumbai") {
         result.textContent = "Correct Answer!";
     } else {
         result.textContent = "Wrong Answer!";
