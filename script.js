@@ -21,6 +21,6 @@ function login() {
     if (username === "") {
         message.textContent = "Please enter your username.";
     } else {
-        message.textContent = "Login successful!";
+        message.textContent = "Login successful! You can start the exam.";
     }
 }
