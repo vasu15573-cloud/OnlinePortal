@@ -22,6 +22,22 @@ pipeline {
             }
         }
 
+        stage('Test') {
+            steps {
+                echo 'Testing Online Examination System files'
+
+                bat 'findstr /I /C:"<html" index.html'
+                bat 'findstr /I /C:"<head" index.html'
+                bat 'findstr /I /C:"<body" index.html'
+                bat 'findstr /I /C:"<script" index.html'
+                bat 'findstr /I /C:"<link" index.html'
+                bat 'findstr /I /C:"function" script.js'
+                bat 'findstr /I /C:"{" style.css'
+
+                echo 'All basic file content tests passed!'
+            }
+        }
+
         stage('Build') {
             steps {
                 echo 'Online Examination System build completed'
