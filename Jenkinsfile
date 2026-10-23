@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -17,6 +18,7 @@ pipeline {
                 bat 'if not exist style.css exit /b 1'
                 bat 'if not exist script.js exit /b 1'
                 bat 'if not exist test\\script.test.js exit /b 1'
+                bat 'if not exist Dockerfile exit /b 1'
 
                 echo 'All required project files are present!'
             }
@@ -29,9 +31,21 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Docker Build') {
             steps {
-                echo 'Online Examination System build completed'
+                echo 'Building OnlinePortal Docker image'
+                bat 'docker build -t onlineportal:1.0 .'
+            }
+        }
+
+        stage('Docker Deploy') {
+            steps {
+                echo 'Deploying OnlinePortal container'
+
+                bat 'docker rm -f onlineportal-container 2>NUL || exit /b 0'
+                bat 'docker run -d --name onlineportal-container -p 8081:80 onlineportal:1.0'
+
+                echo 'OnlinePortal deployment completed!'
             }
         }
     }
