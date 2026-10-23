@@ -39,14 +39,17 @@ pipeline {
         }
 
         stage('Docker Deploy') {
-            steps {
-                echo 'Deploying OnlinePortal container'
+    steps {
+        echo 'Deploying OnlinePortal container'
 
-                bat 'docker rm -f onlineportal-container 2>NUL || exit /b 0'
-                bat 'docker run -d --name onlineportal-container -p 8081:80 onlineportal:1.0'
+        bat '''
+            docker rm -f onlineportal-container 2>NUL
+            docker run -d --name onlineportal-container -p 8081:80 onlineportal:1.0
+            if errorlevel 1 exit /b 1
+        '''
 
-                echo 'OnlinePortal deployment completed!'
-            }
-        }
+        echo 'OnlinePortal deployment completed!'
+    }
+}
     }
 }
